@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35431.28
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".solution files", ".solution files", "{1BF3B3FF-32A8-4E64-A13D-2D1C3BE5E5C6}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mcp-plugins", "mcp-plugins", "{0B4B5A4F-7E82-456A-9E56-35FD6B0FB723}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "agents", "agents", "{475562EF-49E7-4C11-B0EF-8A30B388ED26}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "devops", "devops", "{153139A6-CA48-40E4-B3B1-967E393DEBA6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "appinsights", "appinsights", "{14081191-C727-4C48-BEDA-4351B8B33AE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppInsightsMCP", "mcp-plugins\appinsights\AppInsightsMCP\AppInsightsMCP.csproj", "{044FBEA5-5ED2-4577-877B-40D2558B06DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevopsMCP", "mcp-plugins\devops\DevopsMCP\DevopsMCP.csproj", "{89D3080F-CC83-4550-B86D-A5088A2BF0C9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{044FBEA5-5ED2-4577-877B-40D2558B06DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{044FBEA5-5ED2-4577-877B-40D2558B06DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{044FBEA5-5ED2-4577-877B-40D2558B06DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{044FBEA5-5ED2-4577-877B-40D2558B06DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89D3080F-CC83-4550-B86D-A5088A2BF0C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89D3080F-CC83-4550-B86D-A5088A2BF0C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89D3080F-CC83-4550-B86D-A5088A2BF0C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89D3080F-CC83-4550-B86D-A5088A2BF0C9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{153139A6-CA48-40E4-B3B1-967E393DEBA6} = {0B4B5A4F-7E82-456A-9E56-35FD6B0FB723}
+		{14081191-C727-4C48-BEDA-4351B8B33AE4} = {0B4B5A4F-7E82-456A-9E56-35FD6B0FB723}
+		{044FBEA5-5ED2-4577-877B-40D2558B06DC} = {14081191-C727-4C48-BEDA-4351B8B33AE4}
+		{89D3080F-CC83-4550-B86D-A5088A2BF0C9} = {153139A6-CA48-40E4-B3B1-967E393DEBA6}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {129BCAEE-9B29-4DBD-9658-2EABD1515DF8}
+	EndGlobalSection
+EndGlobal
