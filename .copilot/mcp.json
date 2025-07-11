@@ -1,0 +1,166 @@
+{
+    "mcpServers": {
+        "appinsights-mcp": {
+            "command": "dotnet",
+            "args": [
+                "run",
+                "--project",
+                "src/MCP/AppInsightsMCP/AppInsightsMCP.csproj"
+            ],
+            "env": {
+                "DOTNET_ENVIRONMENT": "Development"
+            },
+            "description": "Azure Application Insights MCP Server - provides tools for querying Application Insights data, metrics, and telemetry",
+            "capabilities": [
+                "tools"
+            ],
+            "tools": [
+                {
+                    "name": "executeQuery",
+                    "description": "Executes a KQL query against Application Insights",
+                    "parameters": {
+                        "query": "string - KQL query to execute",
+                        "timespan": "string (optional) - Time range for the query (e.g., 'PT1H', 'P1D')"
+                    }
+                },
+                {
+                    "name": "getApplicationInfo",
+                    "description": "Gets application information from Application Insights",
+                    "parameters": {}
+                },
+                {
+                    "name": "getMetric",
+                    "description": "Gets a specific metric from Application Insights",
+                    "parameters": {
+                        "metricName": "string - Name of the metric to retrieve",
+                        "timespan": "string (optional) - Time range for the metric",
+                        "aggregation": "string (optional) - Aggregation method"
+                    }
+                },
+                {
+                    "name": "getEvents",
+                    "description": "Gets events of a specific type from Application Insights",
+                    "parameters": {
+                        "eventType": "string - Type of events to retrieve",
+                        "timespan": "string (optional) - Time range for events",
+                        "top": "number (optional) - Maximum number of events to return"
+                    }
+                },
+                {
+                    "name": "getExceptions",
+                    "description": "Gets exceptions from Application Insights",
+                    "parameters": {
+                        "timespan": "string (optional) - Time range for exceptions",
+                        "top": "number (optional) - Maximum number of exceptions to return"
+                    }
+                },
+                {
+                    "name": "getRequests",
+                    "description": "Gets request telemetry from Application Insights",
+                    "parameters": {
+                        "timespan": "string (optional) - Time range for requests",
+                        "top": "number (optional) - Maximum number of requests to return"
+                    }
+                },
+                {
+                    "name": "getDependencies",
+                    "description": "Gets dependency telemetry from Application Insights",
+                    "parameters": {
+                        "timespan": "string (optional) - Time range for dependencies",
+                        "top": "number (optional) - Maximum number of dependencies to return"
+                    }
+                },
+                {
+                    "name": "getTraces",
+                    "description": "Gets trace telemetry from Application Insights",
+                    "parameters": {
+                        "timespan": "string (optional) - Time range for traces",
+                        "top": "number (optional) - Maximum number of traces to return"
+                    }
+                },
+                {
+                    "name": "getPerformanceCounters",
+                    "description": "Gets performance counter data from Application Insights",
+                    "parameters": {
+                        "timespan": "string (optional) - Time range for performance counters",
+                        "top": "number (optional) - Maximum number of performance counters to return"
+                    }
+                }
+            ]
+        },
+        "devops-mcp": {
+            "command": "dotnet",
+            "args": [
+                "run",
+                "--project",
+                "src/MCP/DevopsMCP/DevopsMCP.csproj"
+            ],
+            "env": {
+                "DOTNET_ENVIRONMENT": "Development"
+            },
+            "description": "Azure DevOps MCP Server - provides tools for managing work items, projects, and Azure DevOps operations",
+            "capabilities": [
+                "tools"
+            ],
+            "tools": [
+                {
+                    "name": "createWorkItems",
+                    "description": "Creates a work item in Azure DevOps",
+                    "parameters": {
+                        "project": "string - Project name or ID",
+                        "type": "string - Work item type (e.g., 'Bug', 'Task', 'User Story')",
+                        "fields": "object - Dictionary of field names and values"
+                    }
+                },
+                {
+                    "name": "getWorkItem",
+                    "description": "Gets a work item by its ID",
+                    "parameters": {
+                        "id": "number - Work item ID"
+                    }
+                },
+                {
+                    "name": "updateWorkItem",
+                    "description": "Updates a work item by its ID",
+                    "parameters": {
+                        "id": "number - Work item ID",
+                        "fields": "object - Dictionary of field names and values to update"
+                    }
+                },
+                {
+                    "name": "deleteWorkItem",
+                    "description": "Deletes a work item by its ID",
+                    "parameters": {
+                        "id": "number - Work item ID"
+                    }
+                },
+                {
+                    "name": "getTags",
+                    "description": "Gets available tags from Azure DevOps",
+                    "parameters": {}
+                },
+                {
+                    "name": "queryWorkItems",
+                    "description": "Queries work items using WIQL (Work Item Query Language)",
+                    "parameters": {
+                        "query": "string - WIQL query to execute"
+                    }
+                },
+                {
+                    "name": "getProjects",
+                    "description": "Gets list of projects from Azure DevOps",
+                    "parameters": {}
+                },
+                {
+                    "name": "getWorkItemTypes",
+                    "description": "Gets available work item types for a project",
+                    "parameters": {
+                        "project": "string - Project name or ID"
+                    }
+                }
+            ]
+        }
+    },
+    "version": "1.0",
+    "description": "Copilot configuration for DevOps Assistant MCP servers providing Azure Application Insights and Azure DevOps integration"
+}

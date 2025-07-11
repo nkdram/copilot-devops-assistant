@@ -68,7 +68,6 @@ Update `src/MCP/AppInsightsMCP/appsettings.json`:
   "AppInsights": {
     "ApplicationId": "your-application-id",
     "ApiKey": "your-api-key",
-    "WorkspaceId": "your-workspace-id"
   }
 }
 ```
