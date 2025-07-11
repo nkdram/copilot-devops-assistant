@@ -1,6 +1,7 @@
 ﻿using DevopsMCP.Service;
 using ModelContextProtocol.Server;
 using System.ComponentModel;
+using System.Text.Json;
 
 namespace DevopsMCP.Tools
 {
@@ -9,71 +10,89 @@ namespace DevopsMCP.Tools
     {
         [McpServerTool(Name = "createWorkItems")]
         [Description("Creates a work item")]
-        public static Task<int> CreateWorkItemAsync(
+        public static async Task<JsonElement> CreateWorkItemAsync(
             IWorkItemService service,
             string project,
             string type,
             Dictionary<string, object> fields)
-            => service.CreateWorkItemAsync(project, type, fields);
+        {
+            return await service.CreateWorkItemAsync(project, type, fields);
+        }
 
         [McpServerTool(Name = "getWorkItem")]
         [Description("Gets a work item by its ID")]
-        public static Task<string> GetWorkItemAsync(
+        public static async Task<JsonElement> GetWorkItemAsync(
             IWorkItemService service,
             int id)
-            => service.GetWorkItemAsync(id);
+        {
+            return await service.GetWorkItemAsync(id);
+        }
 
         [McpServerTool(Name = "updateWorkItem")]
         [Description("Updates a work item by its ID")]
-        public static Task<bool> UpdateWorkItemAsync(
+        public static async Task<JsonElement> UpdateWorkItemAsync(
             IWorkItemService service,
             int id,
             Dictionary<string, object> fields)
-            => service.UpdateWorkItemAsync(id, fields);
+        {
+            return await service.UpdateWorkItemAsync(id, fields);
+        }
 
         [McpServerTool(Name = "deleteWorkItem")]
         [Description("Deletes a work item by its ID")]
-        public static Task<bool> DeleteWorkItemAsync(
+        public static async Task<JsonElement> DeleteWorkItemAsync(
             IWorkItemService service,
             int id)
-            => service.DeleteWorkItemAsync(id);
+        {
+            return await service.DeleteWorkItemAsync(id);
+        }
 
         [McpServerTool(Name = "getTags")]
         [Description("Gets tags for a work item")]
-        public static Task<IReadOnlyList<string>> GetTagsAsync(
+        public static async Task<JsonElement> GetTagsAsync(
             IWorkItemService service,
             int id)
-            => service.GetTagsAsync(id);
+        {
+            return await service.GetTagsAsync(id);
+        }
 
         [McpServerTool(Name = "addTags")]
         [Description("Adds tags to a work item")]
-        public static Task<bool> AddTagsAsync(
+        public static async Task<JsonElement> AddTagsAsync(
             IWorkItemService service,
             int id,
             IEnumerable<string> tags)
-            => service.AddTagsAsync(id, tags);
+        {
+            return await service.AddTagsAsync(id, tags);
+        }
 
         [McpServerTool(Name = "removeTags")]
         [Description("Removes tags from a work item")]
-        public static Task<bool> RemoveTagsAsync(
+        public static async Task<JsonElement> RemoveTagsAsync(
             IWorkItemService service,
             int id,
             IEnumerable<string> tags)
-            => service.RemoveTagsAsync(id, tags);
+        {
+            return await service.RemoveTagsAsync(id, tags);
+        }
 
         [McpServerTool(Name = "getComments")]
         [Description("Gets comments for a work item")]
-        public static Task<IReadOnlyList<string>> GetCommentsAsync(
+        public static async Task<JsonElement> GetCommentsAsync(
             IWorkItemService service,
             int id)
-            => service.GetCommentsAsync(id);
+        {
+            return await service.GetCommentsAsync(id);
+        }
 
         [McpServerTool(Name = "addComment")]
         [Description("Adds a comment to a work item")]
-        public static Task<bool> AddCommentAsync(
+        public static async Task<JsonElement> AddCommentAsync(
             IWorkItemService service,
             int id,
             string comment)
-            => service.AddCommentAsync(id, comment);
+        {
+            return await service.AddCommentAsync(id, comment);
+        }
     }
 }
