@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>a18909a6-4776-4a89-9008-9d43a0fecb1f</UserSecretsId>
+    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
+    <Version>1.0.0</Version>
+    <Title>DevopsMCP</Title>
+    <Authors>nkdram</Authors>
+    <Description>MCP tools for Azure Devops</Description>
+    <ToolCommandName>tools.devops</ToolCommandName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
+    <PackageReference Include="ModelContextProtocol" Version="0.3.0-preview.2" />
+  </ItemGroup>
+
+</Project>

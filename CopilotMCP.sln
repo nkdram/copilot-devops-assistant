@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35431.28
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".solution_files", ".solution_files", "{1BF3B3FF-32A8-4E64-A13D-2D1C3BE5E5C6}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MCP", "MCP", "{0B4B5A4F-7E82-456A-9E56-35FD6B0FB723}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Devops", "Devops", "{153139A6-CA48-40E4-B3B1-967E393DEBA6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppInsights", "AppInsights", "{14081191-C727-4C48-BEDA-4351B8B33AE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppInsightsMCP", "src\MCP\AppInsightsMCP\AppInsightsMCP.csproj", "{01A14166-E303-42A3-8D86-4A3E75E852D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevopsMCP", "src\MCP\DevopsMCP\DevopsMCP.csproj", "{01CC5DC6-8A0D-4EDE-A45A-3AF8707F2B4F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{01A14166-E303-42A3-8D86-4A3E75E852D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01A14166-E303-42A3-8D86-4A3E75E852D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01A14166-E303-42A3-8D86-4A3E75E852D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01A14166-E303-42A3-8D86-4A3E75E852D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01CC5DC6-8A0D-4EDE-A45A-3AF8707F2B4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01CC5DC6-8A0D-4EDE-A45A-3AF8707F2B4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01CC5DC6-8A0D-4EDE-A45A-3AF8707F2B4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01CC5DC6-8A0D-4EDE-A45A-3AF8707F2B4F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{153139A6-CA48-40E4-B3B1-967E393DEBA6} = {0B4B5A4F-7E82-456A-9E56-35FD6B0FB723}
+		{14081191-C727-4C48-BEDA-4351B8B33AE4} = {0B4B5A4F-7E82-456A-9E56-35FD6B0FB723}
+		{01A14166-E303-42A3-8D86-4A3E75E852D8} = {14081191-C727-4C48-BEDA-4351B8B33AE4}
+		{01CC5DC6-8A0D-4EDE-A45A-3AF8707F2B4F} = {153139A6-CA48-40E4-B3B1-967E393DEBA6}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {129BCAEE-9B29-4DBD-9658-2EABD1515DF8}
+	EndGlobalSection
+EndGlobal

@@ -205,3 +205,56 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+.vs
+
+# .NET Core
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.vs/
+*.vscode/
+*.dbmdl
+*.pdb
+*.cache
+*.log
+*.ide/
+*.ncrunch*
+*.localhistory/
+*.DS_Store
+*.sln.ide
+*.sln.iml
+*.sln.cache
+*.sln.docstates
+*.sln.ide
+*.sln.iml
+*.sln.cache
+*.sln.docstates
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Publish output
+publish/
+out/
+
+# Visual Studio Code workspace
+.vscode/
+
+# Rider
+.idea/
+*.sln.iml
+
+# DotCover
+*.dotCover
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Azure Pipelines
+.azure-pipelines/
