@@ -30,12 +30,7 @@ if (isWebApiMode)
         {
             Title = "DevopsMCP API",
             Version = "v1",
-            Description = "REST API for Azure DevOps Work Item operations",
-            Contact = new OpenApiContact
-            {
-                Name = "DevopsMCP",
-                Email = "support@devopsmcp.com"
-            }
+            Description = "REST API for Azure DevOps Work Item operations",           
         });
     });
 
