@@ -65,3 +65,10 @@ Run servers as REST APIs for testing:
 dotnet run --web    # AppInsights API + Swagger
 dotnet run --api    # DevOps API + Swagger
 ```
+
+## Prompt Templates
+
+- `prompt-templates.md` - General developer task analysis templates
+- `mcp-prompts.md` - MCP-specific prompts for Azure DevOps integration
+
+Use these templates to quickly analyze work items, plan development, and understand task scope before starting work.
