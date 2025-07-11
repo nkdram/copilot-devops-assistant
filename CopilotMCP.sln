@@ -8,6 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".solution_files", ".solutio
 		.gitignore = .gitignore
 		README.md = README.md
 		docs\MCP-Inspector.md = docs\MCP-Inspector.md
+		docs\Crew-Setup.md = docs\Crew-Setup.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MCP", "MCP", "{0B4B5A4F-7E82-456A-9E56-35FD6B0FB723}"
@@ -19,6 +20,15 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppInsightsMCP", "src\MCP\AppInsightsMCP\AppInsightsMCP.csproj", "{01A14166-E303-42A3-8D86-4A3E75E852D8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevopsMCP", "src\MCP\DevopsMCP\DevopsMCP.csproj", "{01CC5DC6-8A0D-4EDE-A45A-3AF8707F2B4F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".copilot", ".copilot", "{1581C160-F3A4-2642-4D6D-E764B7991BFF}"
+	ProjectSection(SolutionItems) = preProject
+		.copilot\README.md = .copilot\README.md
+		.copilot\mcp.json = .copilot\mcp.json
+		.copilot\mcp-prompts.md = .copilot\mcp-prompts.md
+		.copilot\mcp-simple.json = .copilot\mcp-simple.json
+		.copilot\prompt-templates.md = .copilot\prompt-templates.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
