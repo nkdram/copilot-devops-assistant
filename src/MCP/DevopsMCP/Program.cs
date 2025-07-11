@@ -5,31 +5,99 @@ using DevopsMCP.Service;
 using DevopsMCP.Settings;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using ModelContextProtocol.Protocol;
 using ModelContextProtocol.Server;
 
-var builder = Host.CreateApplicationBuilder(args);
-// builder.Logging.ClearProviders();
+// Check if we should run in Web API mode or MCP mode
+var commandArgs = Environment.GetCommandLineArgs();
+var isWebApiMode = commandArgs.Contains("--web") || commandArgs.Contains("--api");
 
-var adoSettings = builder.Configuration.GetSection("AzureDevops").Get<AzureDevops>();
-
-builder.Services.AddSingleton(_ =>
+if (isWebApiMode)
 {
-    var httpClient = new HttpClient { BaseAddress = new Uri($"https://dev.azure.com/{adoSettings?.Organization}/{adoSettings?.Project}/") };
-    var token = Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes($":{adoSettings?.PersonalAccessToken}"));
-    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", token);
-    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-    return httpClient;
-});
+    // Web API mode
+    var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSingleton<IWorkItemService, WorkItemService>();
+    // Configure services
+    var adoSettings = builder.Configuration.GetSection("AzureDevops").Get<AzureDevops>();
 
-builder.Services.AddMcpServer(o =>
+    // Add Web API services
+    builder.Services.AddControllers();
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo
+        {
+            Title = "DevopsMCP API",
+            Version = "v1",
+            Description = "REST API for Azure DevOps Work Item operations",
+            Contact = new OpenApiContact
+            {
+                Name = "DevopsMCP",
+                Email = "support@devopsmcp.com"
+            }
+        });
+    });
+
+    // Configure HttpClient for Azure DevOps
+    builder.Services.AddSingleton(_ =>
+    {
+        var httpClient = new HttpClient { BaseAddress = new Uri($"https://dev.azure.com/{adoSettings?.Organization}/{adoSettings?.Project}/") };
+        var token = Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes($":{adoSettings?.PersonalAccessToken}"));
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", token);
+        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        return httpClient;
+    });
+
+    // Register services
+    builder.Services.AddSingleton<IWorkItemService, WorkItemService>();
+
+    var app = builder.Build();
+
+    // Configure Web API pipeline
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "DevopsMCP API v1");
+        c.RoutePrefix = string.Empty; // Set Swagger UI at the app's root
+    });
+
+    app.UseRouting();
+    app.MapControllers();
+
+    Console.WriteLine("Starting DevopsMCP in Web API mode...");
+    Console.WriteLine($"Swagger UI available at: {app.Urls.FirstOrDefault() ?? "http://localhost:5000"}");
+    Console.WriteLine($"API endpoints available at: {app.Urls.FirstOrDefault() ?? "http://localhost:5000"}/api/workitem");
+
+    app.Run();
+}
+else
 {
-    o.ServerInfo = new Implementation { Name = "DevopMCP", Version = "1.0.0" };
-})
-.WithStdioServerTransport()
-.WithToolsFromAssembly();
+    // MCP mode
+    var builder = Host.CreateApplicationBuilder(args);
 
-var app = builder.Build();
-app.Run();
+    var adoSettings = builder.Configuration.GetSection("AzureDevops").Get<AzureDevops>();
+
+    builder.Services.AddSingleton(_ =>
+    {
+        var httpClient = new HttpClient { BaseAddress = new Uri($"https://dev.azure.com/{adoSettings?.Organization}/{adoSettings?.Project}/") };
+        var token = Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes($":{adoSettings?.PersonalAccessToken}"));
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", token);
+        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        return httpClient;
+    });
+
+    builder.Services.AddSingleton<IWorkItemService, WorkItemService>();
+
+    builder.Services.AddMcpServer(o =>
+    {
+        o.ServerInfo = new Implementation { Name = "DevopsMCP", Version = "1.0.0" };
+    })
+    .WithStdioServerTransport()
+    .WithToolsFromAssembly();
+
+    var app = builder.Build();
+
+    Console.WriteLine("Starting DevopsMCP in MCP mode...");
+    app.Run();
+}
