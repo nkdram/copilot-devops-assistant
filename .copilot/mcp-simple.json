@@ -1,0 +1,26 @@
+{
+    "mcpServers": {
+        "appinsights": {
+            "command": "dotnet",
+            "args": [
+                "run",
+                "--project",
+                "src/MCP/AppInsightsMCP"
+            ],
+            "env": {
+                "DOTNET_ENVIRONMENT": "Development"
+            }
+        },
+        "devops": {
+            "command": "dotnet",
+            "args": [
+                "run",
+                "--project", 
+                "src/MCP/DevopsMCP"
+            ],
+            "env": {
+                "DOTNET_ENVIRONMENT": "Development"
+            }
+        }
+    }
+}
