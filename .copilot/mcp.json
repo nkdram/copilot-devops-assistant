@@ -98,7 +98,7 @@
             "env": {
                 "DOTNET_ENVIRONMENT": "Development"
             },
-            "description": "Azure DevOps MCP Server - provides tools for managing work items, projects, and Azure DevOps operations",
+            "description": "Azure DevOps MCP Server - provides tools for managing work items, test plans, and Azure DevOps operations with Gherkin test steps support",
             "capabilities": [
                 "tools"
             ],
@@ -114,7 +114,7 @@
                 },
                 {
                     "name": "getWorkItem",
-                    "description": "Gets a work item by its ID",
+                    "description": "Gets a work item by its ID (including test cases)",
                     "parameters": {
                         "id": "number - Work item ID"
                     }
@@ -136,26 +136,113 @@
                 },
                 {
                     "name": "getTags",
-                    "description": "Gets available tags from Azure DevOps",
-                    "parameters": {}
-                },
-                {
-                    "name": "queryWorkItems",
-                    "description": "Queries work items using WIQL (Work Item Query Language)",
+                    "description": "Gets tags for a work item",
                     "parameters": {
-                        "query": "string - WIQL query to execute"
+                        "id": "number - Work item ID"
                     }
                 },
                 {
-                    "name": "getProjects",
-                    "description": "Gets list of projects from Azure DevOps",
-                    "parameters": {}
+                    "name": "addTags",
+                    "description": "Adds tags to a work item",
+                    "parameters": {
+                        "id": "number - Work item ID",
+                        "tags": "array - Array of tag strings to add"
+                    }
                 },
                 {
-                    "name": "getWorkItemTypes",
-                    "description": "Gets available work item types for a project",
+                    "name": "removeTags",
+                    "description": "Removes tags from a work item",
                     "parameters": {
-                        "project": "string - Project name or ID"
+                        "id": "number - Work item ID",
+                        "tags": "array - Array of tag strings to remove"
+                    }
+                },
+                {
+                    "name": "getComments",
+                    "description": "Gets comments for a work item",
+                    "parameters": {
+                        "id": "number - Work item ID"
+                    }
+                },
+                {
+                    "name": "addComment",
+                    "description": "Adds a comment to a work item",
+                    "parameters": {
+                        "id": "number - Work item ID",
+                        "comment": "string - Comment text to add"
+                    }
+                },
+                {
+                    "name": "createTestPlan",
+                    "description": "Creates a test plan with optional Gherkin-formatted test steps and parameter tables for data-driven testing",
+                    "parameters": {
+                        "project": "string - Project name or ID",
+                        "name": "string - Test plan name",
+                        "fields": "object - Dictionary of field names and values",
+                        "steps": "array (optional) - Array of TestStep objects with Gherkin format (Given/When/Then/And/But)",
+                        "parameters": "array (optional) - Array of ParameterSet objects for data-driven testing"
+                    }
+                },
+                {
+                    "name": "getTestPlan",
+                    "description": "Gets a test plan by its ID",
+                    "parameters": {
+                        "id": "number - Test plan ID"
+                    }
+                },
+                {
+                    "name": "updateTestPlan",
+                    "description": "Updates a test plan with optional Gherkin steps and parameters",
+                    "parameters": {
+                        "id": "number - Test plan ID",
+                        "fields": "object - Dictionary of field names and values to update",
+                        "steps": "array (optional) - Array of TestStep objects",
+                        "parameters": "array (optional) - Array of ParameterSet objects"
+                    }
+                },
+                {
+                    "name": "deleteTestPlan",
+                    "description": "Deletes a test plan by its ID",
+                    "parameters": {
+                        "id": "number - Test plan ID"
+                    }
+                },
+                {
+                    "name": "getTestPlanTags",
+                    "description": "Gets tags for a test plan",
+                    "parameters": {
+                        "id": "number - Test plan ID"
+                    }
+                },
+                {
+                    "name": "addTestPlanTags",
+                    "description": "Adds tags to a test plan",
+                    "parameters": {
+                        "id": "number - Test plan ID",
+                        "tags": "array - Array of tag strings to add"
+                    }
+                },
+                {
+                    "name": "removeTestPlanTags",
+                    "description": "Removes tags from a test plan",
+                    "parameters": {
+                        "id": "number - Test plan ID",
+                        "tags": "array - Array of tag strings to remove"
+                    }
+                },
+                {
+                    "name": "getTestPlanComments",
+                    "description": "Gets comments for a test plan",
+                    "parameters": {
+                        "id": "number - Test plan ID"
+                    }
+                },
+                {
+                    "name": "addTestPlanComment",
+                    "description": "Adds a comment to a test plan",
+                    "parameters": {
+                        "id": "number - Test plan ID",
+                        "comment": "string - Comment text to add"
                     }
                 }
             ]

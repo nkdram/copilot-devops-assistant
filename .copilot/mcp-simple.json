@@ -1,22 +1,27 @@
 {
     "mcpServers": {
-        "appinsights": {
+        "devops-mcp": {
+			"command": "dotnet",
+			"args": [
+				"run",
+				"--project",
+				"src/MCP/DevopsMCP/DevopsMCP.csproj",
+				"--launch-profile",
+				"console"
+			],
+			"env": {
+				"ASPNETCORE_ENVIRONMENT": "Development"
+			},
+			"type": "stdio"
+		},
+		"appinsights": {
             "command": "dotnet",
             "args": [
                 "run",
                 "--project",
-                "src/MCP/AppInsightsMCP"
-            ],
-            "env": {
-                "DOTNET_ENVIRONMENT": "Development"
-            }
-        },
-        "devops": {
-            "command": "dotnet",
-            "args": [
-                "run",
-                "--project", 
-                "src/MCP/DevopsMCP"
+                "src/MCP/AppInsightsMCP",
+				"--launch-profile",
+				"console"
             ],
             "env": {
                 "DOTNET_ENVIRONMENT": "Development"

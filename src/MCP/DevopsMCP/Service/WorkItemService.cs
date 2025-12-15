@@ -14,9 +14,16 @@ namespace DevopsMCP.Service
             _apiVersion = apiVersion;
         }
 
+        public async Task<JsonElement> GetWorkItemAsync(int id)
+        {
+            var uri = $"_apis/wit/workitems/{id}?api-version={_apiVersion}";
+            return await _httpClient.GetFromJsonAsync<JsonElement>(uri);
+        }
+
         public async Task<JsonElement> CreateWorkItemAsync(string project, string type, Dictionary<string, object> fields)
         {
-            var uri = $"{project}/_apis/wit/workitems/${type}?api-version={_apiVersion}";
+            var encodedType = Uri.EscapeDataString(type);
+            var uri = $"_apis/wit/workitems/${encodedType}?api-version={_apiVersion}";
             var patchDocument = new List<object>();
             foreach (var field in fields)
             {
@@ -29,15 +36,10 @@ namespace DevopsMCP.Service
             }
 
             var content = new StringContent(JsonSerializer.Serialize(patchDocument), Encoding.UTF8, "application/json-patch+json");
-            var response = await _httpClient.PostAsync(uri, content);
+            var request = new HttpRequestMessage(new HttpMethod("PATCH"), uri) { Content = content };
+            var response = await _httpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<JsonElement>();
-        }
-
-        public async Task<JsonElement> GetWorkItemAsync(int id)
-        {
-            var uri = $"_apis/wit/workitems/{id}?api-version={_apiVersion}";
-            return await _httpClient.GetFromJsonAsync<JsonElement>(uri);
         }
 
         public async Task<JsonElement> UpdateWorkItemAsync(int id, Dictionary<string, object> fields)

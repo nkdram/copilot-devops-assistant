@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using DevopsMCP.Service;
 using DevopsMCP.Settings;
+using DevopsMCP.Tools;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
@@ -46,6 +47,7 @@ if (isWebApiMode)
 
     // Register services
     builder.Services.AddSingleton<IWorkItemService, WorkItemService>();
+    builder.Services.AddSingleton<ITestPlanService, TestPlanService>();
 
     var app = builder.Build();
 
@@ -63,6 +65,7 @@ if (isWebApiMode)
     Console.WriteLine("Starting DevopsMCP in Web API mode...");
     Console.WriteLine($"Swagger UI available at: {app.Urls.FirstOrDefault() ?? "http://localhost:5000"}");
     Console.WriteLine($"API endpoints available at: {app.Urls.FirstOrDefault() ?? "http://localhost:5000"}/api/workitem");
+    Console.WriteLine($"API endpoints available at: {app.Urls.FirstOrDefault() ?? "http://localhost:5000"}/api/testcase");
 
     app.Run();
 }
@@ -83,6 +86,7 @@ else
     });
 
     builder.Services.AddSingleton<IWorkItemService, WorkItemService>();
+    builder.Services.AddSingleton<ITestPlanService, TestPlanService>();
 
     builder.Services.AddMcpServer(o =>
     {
