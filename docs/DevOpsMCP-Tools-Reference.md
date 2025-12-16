@@ -473,19 +473,211 @@ Deletes test cases using the Test Management API. Note: Test cases must be remov
 
 ---
 
+### Repository & Git Tools
+
+#### 21. `getRepositories`
+Gets all repositories in a project.
+
+**Parameters:**
+- `project` (string) - Project name or ID
+
+**Example:**
+```json
+{
+  "project": "RoyalCaninSitecore"
+}
+```
+
+#### 22. `getRepository`
+Gets a specific repository by ID.
+
+**Parameters:**
+- `repositoryId` (string) - Repository ID or name
+- `project` (string, optional) - Project name or ID
+
+#### 23. `getFileContent`
+Gets file content from a repository using Azure DevOps full file path (useful when analyzing files linked in work items).
+
+**Parameters:**
+- `repositoryId` (string) - Repository ID or name
+- `path` (string) - Full path to file (e.g., `/cypress/e2e/B2BEntries.feature`)
+- `branch` (string, optional) - Branch name (default: repository default branch)
+- `project` (string, optional) - Project name or ID
+
+**Example:**
+```json
+{
+  "repositoryId": "Websites.RoyalCanin.UpgradeAutomationTestsGit",
+  "path": "/cypress/e2e/B2BEntries.feature",
+  "branch": "develop"
+}
+```
+
+**Usage with DevOps file URLs:**
+When a work item contains a URL like:
+`https://dev.azure.com/MarsDevTeam/RoyalCaninSitecore/_git/Websites.RoyalCanin.UpgradeAutomationTestsGit?path=/cypress/e2e/B2BEntries.feature&version=GBdevelop`
+
+Extract:
+- `repositoryId`: `Websites.RoyalCanin.UpgradeAutomationTestsGit`
+- `path`: `/cypress/e2e/B2BEntries.feature`
+- `branch`: `develop`
+
+#### 24. `getFolderContents`
+Gets contents of a folder in a repository.
+
+**Parameters:**
+- `repositoryId` (string) - Repository ID or name
+- `path` (string) - Folder path
+- `branch` (string, optional) - Branch name
+- `project` (string, optional) - Project name or ID
+
+#### 25. `getBranches`
+Gets all branches in a repository.
+
+**Parameters:**
+- `repositoryId` (string) - Repository ID or name
+- `project` (string, optional) - Project name or ID
+
+#### 26. `createBranch`
+Creates a new branch in a repository.
+
+**Parameters:**
+- `repositoryId` (string) - Repository ID or name
+- `branchName` (string) - Name of the new branch (without `refs/heads/`)
+- `sourceBranch` (string) - Source branch name to branch from
+- `project` (string, optional) - Project name or ID
+
+**Example:**
+```json
+{
+  "repositoryId": "MyRepo",
+  "branchName": "feature/new-test-cases",
+  "sourceBranch": "main"
+}
+```
+
+#### 27. `createCommit`
+Creates a commit with file changes in a repository branch.
+
+**Parameters:**
+- `repositoryId` (string) - Repository ID or name
+- `branchName` (string) - Branch name to commit to
+- `commitMessage` (string) - Commit message
+- `changes` (array) - Array of file changes
+  - `path` (string) - File path
+  - `changeType` (string) - Type: `add`, `edit`, or `delete`
+  - `content` (string, optional) - File content (base64 or raw text)
+  - `encoding` (string, optional) - `base64` or `raw` (default: `base64`)
+- `project` (string, optional) - Project name or ID
+
+**Example:**
+```json
+{
+  "repositoryId": "MyRepo",
+  "branchName": "feature/new-test-cases",
+  "commitMessage": "Add new test cases",
+  "changes": [
+    {
+      "path": "/tests/newtest.spec.ts",
+      "changeType": "add",
+      "content": "aW1wb3J0IHsgdGVzdCB9IGZyb20gJ0BwbGF5d3JpZ2h0L3Rlc3QnOw==",
+      "encoding": "base64"
+    }
+  ]
+}
+```
+
+#### 28. `createPullRequest`
+Creates a pull request in a repository.
+
+**Parameters:**
+- `repositoryId` (string) - Repository ID or name
+- `sourceBranch` (string) - Source branch name (without `refs/heads/`)
+- `targetBranch` (string) - Target branch name (without `refs/heads/`)
+- `title` (string) - Pull request title
+- `description` (string, optional) - Pull request description
+- `project` (string, optional) - Project name or ID
+
+**Example:**
+```json
+{
+  "repositoryId": "MyRepo",
+  "sourceBranch": "feature/new-test-cases",
+  "targetBranch": "main",
+  "title": "Add new test cases for B2B entries",
+  "description": "This PR adds comprehensive test cases for the B2B entries feature"
+}
+```
+
+#### 29. `getPullRequest`
+Gets a specific pull request by ID.
+
+**Parameters:**
+- `repositoryId` (string) - Repository ID or name
+- `pullRequestId` (number) - Pull request ID
+- `project` (string, optional) - Project name or ID
+
+#### 30. `getPullRequests`
+Gets pull requests in a repository with optional status filter.
+
+**Parameters:**
+- `repositoryId` (string) - Repository ID or name
+- `status` (string, optional) - Filter by status: `active`, `completed`, `abandoned`, `all`
+- `project` (string, optional) - Project name or ID
+
+#### 31. `updatePullRequest`
+Updates a pull request (e.g., change status, add reviewers).
+
+**Parameters:**
+- `repositoryId` (string) - Repository ID or name
+- `pullRequestId` (number) - Pull request ID
+- `updates` (object) - Dictionary of fields to update
+- `project` (string, optional) - Project name or ID
+
+**Example - Complete a PR:**
+```json
+{
+  "repositoryId": "MyRepo",
+  "pullRequestId": 123,
+  "updates": {
+    "status": "completed"
+  }
+}
+```
+
+---
+
 ## Quick Reference
 
 | Tool | Purpose | Key Parameters |
 |------|---------|----------------|
+| **Work Items** |
 | `getWorkItem` | Get test case/work item | `id` |
 | `createWorkItems` | Create new work item | `project`, `type`, `fields` |
 | `updateWorkItem` | Update work item | `id`, `fields` |
-| `getTestPlan` | Get test plan | `id` |
-| `createTestPlan` | Create test plan with Gherkin | `project`, `name`, `steps`, `parameters` |
+| `deleteWorkItem` | Delete work item | `id` |
 | `addTags` | Add tags | `id`, `tags` |
 | `addComment` | Add comment | `id`, `comment` |
+| **Test Plans** |
+| `getTestPlan` | Get test plan | `id` |
+| `createTestPlan` | Create test plan with Gherkin | `project`, `name`, `steps`, `parameters` |
+| `updateTestPlan` | Update test plan | `id`, `fields`, `steps`, `parameters` |
+| `deleteTestPlan` | Delete test plan | `id` |
+| **Test Suites** |
 | `getTestSuite` | Get test suite | `planId`, `suiteId` |
 | `addTestCasesToSuite` | Add test cases to suite | `planId`, `suiteId`, `testCaseIds` |
 | `removeTestCasesFromSuite` | Remove test cases from suite | `planId`, `suiteId`, `testCaseIds` |
 | `getTestCasesInSuite` | Get test cases in suite | `planId`, `suiteId` |
 | `deleteTestCases` | Delete test cases | `testCaseIds` |
+| **Repository & Git** |
+| `getRepositories` | Get all repositories | `project` |
+| `getRepository` | Get specific repository | `repositoryId` |
+| `getFileContent` | Get file content from repo | `repositoryId`, `path`, `branch` |
+| `getFolderContents` | Get folder contents | `repositoryId`, `path` |
+| `getBranches` | Get all branches | `repositoryId` |
+| `createBranch` | Create new branch | `repositoryId`, `branchName`, `sourceBranch` |
+| `createCommit` | Create commit with changes | `repositoryId`, `branchName`, `changes` |
+| `createPullRequest` | Create pull request | `repositoryId`, `sourceBranch`, `targetBranch`, `title` |
+| `getPullRequest` | Get pull request | `repositoryId`, `pullRequestId` |
+| `getPullRequests` | Get pull requests | `repositoryId`, `status` |
+| `updatePullRequest` | Update pull request | `repositoryId`, `pullRequestId`, `updates` |

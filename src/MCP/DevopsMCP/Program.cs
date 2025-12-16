@@ -48,6 +48,7 @@ if (isWebApiMode)
     // Register services
     builder.Services.AddSingleton<IWorkItemService, WorkItemService>();
     builder.Services.AddSingleton<ITestPlanService, TestPlanService>();
+    builder.Services.AddSingleton<IRepositoryService, RepositoryService>();
 
     var app = builder.Build();
 
@@ -66,6 +67,7 @@ if (isWebApiMode)
     Console.WriteLine($"Swagger UI available at: {app.Urls.FirstOrDefault() ?? "http://localhost:5000"}");
     Console.WriteLine($"API endpoints available at: {app.Urls.FirstOrDefault() ?? "http://localhost:5000"}/api/workitem");
     Console.WriteLine($"API endpoints available at: {app.Urls.FirstOrDefault() ?? "http://localhost:5000"}/api/testcase");
+    Console.WriteLine($"API endpoints available at: {app.Urls.FirstOrDefault() ?? "http://localhost:5000"}/api/repository");
 
     app.Run();
 }
@@ -87,6 +89,7 @@ else
 
     builder.Services.AddSingleton<IWorkItemService, WorkItemService>();
     builder.Services.AddSingleton<ITestPlanService, TestPlanService>();
+    builder.Services.AddSingleton<IRepositoryService, RepositoryService>();
 
     builder.Services.AddMcpServer(o =>
     {
