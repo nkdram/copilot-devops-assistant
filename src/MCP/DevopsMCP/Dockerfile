@@ -14,15 +14,15 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:9.0-alpine AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["DevopsMCP.csproj", "./"]
-RUN dotnet restore "./DevopsMCP.csproj"
-COPY . .
-RUN dotnet build "./DevopsMCP.csproj" -c $BUILD_CONFIGURATION -o /app/build
+COPY ["src/MCP/DevopsMCP/DevopsMCP.csproj", "DevopsMCP/"]
+RUN dotnet restore "DevopsMCP/DevopsMCP.csproj"
+COPY src/MCP/DevopsMCP/ DevopsMCP/
+RUN dotnet build "DevopsMCP/DevopsMCP.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./DevopsMCP.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "DevopsMCP/DevopsMCP.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
