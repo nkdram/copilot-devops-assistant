@@ -3,8 +3,8 @@ version: '3.8'
 services:
   devopsmcp:
     build:
-      context: ./src/MCP/DevopsMCP
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./src/MCP/DevopsMCP/Dockerfile
     image: devopsmcp:local
     container_name: devopsmcp
     environment:
@@ -24,8 +24,8 @@ services:
 
   appinsightsmcp:
     build:
-      context: ./src/MCP/AppInsightsMCP
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./src/MCP/AppInsightsMCP/Dockerfile
     image: appinsightsmcp:local
     container_name: appinsightsmcp
     environment:
