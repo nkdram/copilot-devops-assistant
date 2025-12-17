@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  devopsmcp:
+    build:
+      context: ./src/MCP/DevopsMCP
+      dockerfile: Dockerfile
+    image: devopsmcp:local
+    container_name: devopsmcp
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - AzureDevops__Organization=${AZDO_ORGANIZATION}
+      - AzureDevops__Project=${AZDO_PROJECT}
+      - AzureDevops__PersonalAccessToken=${AZDO_PAT}
+    ports:
+      - "5001:8080"
+    volumes:
+      - ./src/MCP/DevopsMCP/appsettings.Development.json:/app/appsettings.Development.json:ro
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    networks:
+      - mcp-network
+
+  appinsightsmcp:
+    build:
+      context: ./src/MCP/AppInsightsMCP
+      dockerfile: Dockerfile
+    image: appinsightsmcp:local
+    container_name: appinsightsmcp
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - AppInsights__ApplicationId=${APPINSIGHTS_APP_ID}
+      - AppInsights__ApiKey=${APPINSIGHTS_API_KEY}
+    ports:
+      - "5002:8080"
+    volumes:
+      - ./src/MCP/AppInsightsMCP/appsettings.Development.json:/app/appsettings.Development.json:ro
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    networks:
+      - mcp-network
+
+networks:
+  mcp-network:
+    driver: bridge
