@@ -1,31 +1,28 @@
 {
     "mcpServers": {
         "devops-mcp": {
-			"command": "dotnet",
+			"command": "docker",
 			"args": [
 				"run",
-				"--project",
-				"src/MCP/DevopsMCP/DevopsMCP.csproj",
-				"--launch-profile",
-				"console"
+				"-i",
+				"--rm",
+				"--env-file",
+				".env",
+				"devopsmcp:local"
 			],
-			"env": {
-				"ASPNETCORE_ENVIRONMENT": "Development"
-			},
 			"type": "stdio"
 		},
 		"appinsights": {
-            "command": "dotnet",
+            "command": "docker",
             "args": [
                 "run",
-                "--project",
-                "src/MCP/AppInsightsMCP",
-				"--launch-profile",
-				"console"
+                "-i",
+                "--rm",
+                "--env-file",
+                ".env",
+                "appinsightsmcp:local"
             ],
-            "env": {
-                "DOTNET_ENVIRONMENT": "Development"
-            }
+            "type": "stdio"
         }
     }
 }
