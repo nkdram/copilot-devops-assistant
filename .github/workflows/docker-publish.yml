@@ -62,17 +62,19 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
             type=sha
 
-      - name: Build and push DevOpsMCP Docker image
+      - name: Build DevOpsMCP with docker-compose
+        run: docker compose build devopsmcp
+
+      - name: Tag and push DevOpsMCP Docker image
+        if: github.event_name != 'pull_request'
         id: build-and-push-devops
-        uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5.0.0
-        with:
-          context: .
-          file: ./src/MCP/DevopsMCP/Dockerfile
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta-devops.outputs.tags }}
-          labels: ${{ steps.meta-devops.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+        run: |
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          for tag in $(echo "${{ steps.meta-devops.outputs.tags }}" | tr ',' ' '); do
+            docker tag devopsmcp:local $tag
+            docker push $tag
+          done
+          echo "digest=$(docker inspect --format='{{index .RepoDigests 0}}' devopsmcp:local | cut -d'@' -f2)" >> $GITHUB_OUTPUT
 
       - name: Sign the DevOpsMCP Docker image
         if: ${{ github.event_name != 'pull_request' }}
@@ -121,17 +123,19 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
             type=sha
 
-      - name: Build and push AppInsightsMCP Docker image
+      - name: Build AppInsightsMCP with docker-compose
+        run: docker compose build appinsightsmcp
+
+      - name: Tag and push AppInsightsMCP Docker image
+        if: github.event_name != 'pull_request'
         id: build-and-push-appinsights
-        uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5.0.0
-        with:
-          context: .
-          file: ./src/MCP/AppInsightsMCP/Dockerfile
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta-appinsights.outputs.tags }}
-          labels: ${{ steps.meta-appinsights.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+        run: |
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          for tag in $(echo "${{ steps.meta-appinsights.outputs.tags }}" | tr ',' ' '); do
+            docker tag appinsightsmcp:local $tag
+            docker push $tag
+          done
+          echo "digest=$(docker inspect --format='{{index .RepoDigests 0}}' appinsightsmcp:local | cut -d'@' -f2)" >> $GITHUB_OUTPUT
 
       - name: Sign the AppInsightsMCP Docker image
         if: ${{ github.event_name != 'pull_request' }}
